@@ -6,45 +6,78 @@
   <title>Ficha de Cadastro - ROTA Internet Fibra</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-body: #f8f9fa;
+      --text-main: #333;
+      --text-secondary: #555;
+      --bg-card: white;
+      --border-card: #e0e0e0;
+      --input-bg: white;
+      --input-text: #333;
+      --input-border: #ced4da;
+      --focus-ring: rgba(37, 211, 102, 0.2);
+      --h1-color: #25D366;
+      --h2-color: #128C7E;
+      --button-bg: #25D366;
+      --button-hover: #20b858;
+    }
+
+    body.dark {
+      --bg-body: #121212;
+      --text-main: #e0e0e0;
+      --text-secondary: #aaa;
+      --bg-card: #1e1e1e;
+      --border-card: #333;
+      --input-bg: #2d2d2d;
+      --input-text: #e0e0e0;
+      --input-border: #444;
+      --focus-ring: rgba(37, 211, 102, 0.35);
+      --h1-color: #4ae88a;
+      --h2-color: #3ab07a;
+    }
+
     body {
       font-family: 'Roboto', Arial, sans-serif;
       max-width: 650px;
       margin: 20px auto;
       padding: 15px;
-      background: #f8f9fa;
-      color: #333;
+      background: var(--bg-body);
+      color: var(--text-main);
+      transition: background 0.3s, color 0.3s;
     }
+
     header { text-align: center; margin-bottom: 25px; position: relative; }
     .logo { max-width: 100px; height: auto; display: block; margin: 0 auto 10px; }
-    h1 { color: #25D366; font-size: 2em; margin: 0; }
-    h2 { color: #128C7E; border-bottom: 2px solid #25D366; padding-bottom: 8px; margin-top: 30px; }
-    h3 { color: #128C7E; margin: 0 0 10px; }
-    label { display: block; margin: 12px 0 5px; font-weight: 500; color: #333; }
+    h1 { color: var(--h1-color); font-size: 2em; margin: 0; }
+    h2 { color: var(--h2-color); border-bottom: 2px solid var(--h1-color); padding-bottom: 8px; margin-top: 30px; }
+    h3 { color: var(--h2-color); margin: 0 0 10px; }
+    label { display: block; margin: 12px 0 5px; font-weight: 500; color: var(--text-main); }
     input, select {
       width: 100%;
       padding: 12px;
       margin-bottom: 4px;
-      border: 1px solid #ced4da;
+      border: 1px solid var(--input-border);
       border-radius: 6px;
       box-sizing: border-box;
       font-size: 16px;
-      background: white;
+      background: var(--input-bg);
+      color: var(--input-text);
     }
     input:focus, select:focus {
       border-color: #25D366;
       outline: none;
-      box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
+      box-shadow: 0 0 0 3px var(--focus-ring);
     }
     .grupo {
-      background: white;
+      background: var(--bg-card);
       padding: 20px;
       border-radius: 10px;
       margin-bottom: 25px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      border: 1px solid #e0e0e0;
+      border: 1px solid var(--border-card);
     }
     button {
-      background: #25D366;
+      background: var(--button-bg);
       color: white;
       border: none;
       padding: 16px;
@@ -56,66 +89,110 @@
       transition: background 0.3s;
       margin-top: 20px;
     }
-    button:hover { background: #20b858; }
-    .instrucao { font-size: 14px; color: #555; text-align: center; margin-top: 25px; line-height: 1.5; }
-    .precos { font-size: 14px; color: #666; margin-top: 10px; font-style: italic; }
-    p.intro { text-align: center; font-size: 1.1em; color: #444; margin-bottom: 30px; }
-    /* MODAL */
-    .modal {
-      display: none;
+    button:hover { background: var(--button-hover); }
+
+    /* Botão flutuante de tema */
+    #toggleTheme {
       position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.65);
-      z-index: 2000;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px solid #25D366;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 15px;
+      z-index: 1000;
+      transition: all 0.25s ease;
+      color: var(--text-main);
     }
-    .modal-content {
-      background: white;
-      max-width: 580px;
-      width: 100%;
-      border-radius: 12px;
-      padding: 24px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      position: relative;
+
+    #toggleTheme:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
     }
-    .modal-header { text-align: center; margin-bottom: 20px; color: #128C7E; }
-    .modal-body { line-height: 1.6; font-size: 1.05em; color: #333; }
+
+    .theme-icon {
+      width: 32px;
+      height: 32px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      transition: opacity 0.4s ease;
+    }
+
+    #sunIcon { display: block; }
+    #moonIcon { display: none; }
+    body.dark #sunIcon { display: none !important; }
+    body.dark #moonIcon { display: block !important; }
+
+    /* Lista de Streaming - estilo harmonioso nos dois modos */
+    #grupoStreaming {
+      display: none; /* começa escondido */
+      margin-top: 20px;
+      padding: 16px;
+      background: var(--bg-card);
+      border: 1px solid rgba(37, 211, 102, 0.35);
+      border-radius: 8px;
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    body.dark #grupoStreaming {
+      border-color: rgba(74, 232, 138, 0.4);
+      background: rgba(74, 232, 138, 0.06);
+    }
+
+    #grupoStreaming p {
+      margin: 0 0 12px;
+      font-size: 0.95em;
+      color: var(--text-secondary);
+    }
+
+    #grupoStreaming small {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.88em;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .instrucao { font-size: 14px; color: var(--text-secondary); text-align: center; margin-top: 25px; line-height: 1.5; }
+    .precos { font-size: 14px; color: var(--text-secondary); margin-top: 10px; font-style: italic; }
+    p.intro { text-align: center; font-size: 1.1em; color: var(--text-main); margin-bottom: 30px; }
+
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 2000; align-items: center; justify-content: center; padding: 15px; }
+    .modal-content { background: var(--bg-card); max-width: 580px; width: 100%; border-radius: 12px; padding: 24px; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.25); color: var(--text-main); }
+    .modal-header { text-align: center; margin-bottom: 20px; color: var(--h2-color); }
+    .modal-body { line-height: 1.6; font-size: 1.05em; }
     .modal-body strong { color: #25D366; }
     .modal-footer { text-align: center; margin-top: 25px; }
-    /* Feedbacks */
     .feedback { font-size: 0.85em; margin-top: 4px; display: block; }
-    .erro { color: #d32f2f; }
-    .sucesso { color: #25D366; }
-    /* Link reabrir modal */
-    .reabrir-link {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 0.95em;
-    }
-    .reabrir-link a {
-      color: #25D366;
-      text-decoration: underline;
-      cursor: pointer;
-    }
+    .erro { color: #ff6b6b; }
+    .sucesso { color: #4ae88a; }
+    .reabrir-link { text-align: center; margin-top: 15px; font-size: 0.95em; }
+    .reabrir-link a { color: #25D366; text-decoration: underline; cursor: pointer; }
   </style>
 </head>
 <body>
+
   <header>
     <img src="https://storage.vmixhost.com/uploads/permanent/68c5704132ad3.png" alt="ROTA Internet Fibra Logo" class="logo">
     <h1>Ficha de Cadastro</h1>
   </header>
+
   <p class="intro">Preencha os dados abaixo e envie via WhatsApp para darmos continuidade com seu pedido de internet fibra óptica!</p>
+
   <form id="fichaForm">
     <div class="grupo">
       <h2>👤 Dados Pessoais</h2>
       <label for="nome">Nome completo:</label>
       <input type="text" id="nome" required>
       <label for="cpf">CPF:</label>
-      <input type="text" id="cpf" required maxlength="11" placeholder="00000000000" oninput="atualizarFeedbackCPF(this)">
+      <input type="text" id="cpf" required maxlength="11" placeholder="000.000.000-00" oninput="atualizarFeedbackCPF(this)">
       <small id="feedbackCPF" class="feedback sucesso">0 / 11 dígitos</small>
       <label for="nascimento">Data de nascimento:</label>
       <input type="date" id="nascimento" required>
@@ -128,6 +205,7 @@
       <input type="tel" id="contato2" maxlength="15" placeholder="(85) 9xxxx-xxxx (opcional)" oninput="atualizarFeedbackTelefone(this, 'feedbackContato2')">
       <small id="feedbackContato2" class="feedback sucesso">Formato válido (opcional)</small>
     </div>
+
     <div class="grupo">
       <h2>🏠 Endereço</h2>
       <label for="rua">Rua:</label>
@@ -141,6 +219,7 @@
       <label for="apartamento">Apartamento:</label>
       <input type="text" id="apartamento" required>
     </div>
+
     <div class="grupo">
       <h2>📡 Informações do Serviço</h2>
       <label for="megas">Plano / MEGAS contratados:</label>
@@ -154,20 +233,17 @@
         <option value="700mb R$134,99">700 MB - R$ 134,99/mês</option>
       </select>
 
-      <!-- Nova seção de Lista de Streaming (aparece só em planos 400+ MB) -->
-      <div id="grupoStreaming" style="display: none; margin-top: 20px; padding: 15px; background: #f0fff0; border: 1px solid #25D366; border-radius: 8px;">
+      <!-- Lista de Streaming - só aparece se plano ≥ 400 MB -->
+      <div id="grupoStreaming">
         <h3>🎥 Lista de Streaming (Bônus Exclusivo)</h3>
-        <p style="font-size: 0.95em; color: #555; margin-bottom: 12px;">
-          Disponível gratuitamente para planos de 400 MB ou superiores.<br>
-          Escolha o tipo de lista desejada:
-        </p>
+        <p>Disponível gratuitamente para planos de 400 MB ou superiores.<br>Escolha o tipo de lista desejada:</p>
         <label for="listaStreaming">Tipo de Lista:</label>
         <select id="listaStreaming">
           <option value="">Selecione...</option>
           <option value="LISTA BASE">LISTA BASE</option>
           <option value="LISTA COMPLETA">LISTA COMPLETA (+18)</option>
         </select>
-        <small class="feedback" id="feedbackLista" style="display: block; margin-top: 6px; color: #555;">
+        <small class="feedback" id="feedbackLista">
           Observação: A Lista Completa inclui todo o conteúdo da Lista Base + material direcionado a maiores de 18 anos.
         </small>
       </div>
@@ -176,6 +252,7 @@
         Todos os planos incluem: Equipamento em comodato (roteador da empresa) + Instalação 100% fibra óptica.
       </div>
     </div>
+
     <div class="grupo">
       <h2>💳 Pagamento</h2>
       <label for="forma">Forma de pagamento da instalação:</label>
@@ -194,6 +271,7 @@
         <option value="25">25</option>
       </select>
     </div>
+
     <div class="grupo">
       <h2>📶 Configuração do Wi-Fi</h2>
       <label for="rede">Nome da rede Wi-Fi:</label>
@@ -205,11 +283,14 @@
         A senha deve ter no mínimo 8 caracteres.
       </small>
     </div>
+
     <button type="button" onclick="confirmarEnvio()">Enviar Cadastro via WhatsApp</button>
   </form>
+
   <p class="instrucao">📌 Após confirmar, o WhatsApp abrirá com todos os dados preenchidos. Confirme o envio!<br>
   Em seguida, envie as fotos dos documentos: RG/CNH (frente e verso) + comprovante de residência no mesmo chat.<br>
   Atendimento ROTA: (85) 8885-4418</p>
+
   <div class="reabrir-link">
     <a href="#" onclick="document.getElementById('modalContrato').style.display='flex'; return false;">
       Ler novamente o resumo de informações
@@ -240,7 +321,7 @@
         (não altera o valor da mensalidade, usando ou não, é apenas um bônus. OBS: Não fornecemos o Aplicativo, somente a lista.)</p>
         <p><strong>Consulta de CPF:</strong> Realizamos diretamente no Serasa.</p>
         <p><strong>Prazo de instalação:</strong> Até 72h (máximo 3 dias úteis) após assinatura do contrato e entrada em rota.</p>
-        <p><strong>Primeira fatura:</strong> Valor proporcional aos dias utilizados até o vencimento escolhido ou integral.</p>
+        <p><strong>Primeira fatura:</strong> Valor proporcional aos dias utilizados até o vencimento escolhido ou Integral.</p>
         <p><strong>Equipamentos:</strong> Em caso de inadimplência por mais de 30 dias, os equipamentos da empresa serão recolhidos. Ao regularizar, são reinstalados sem custo caso a instalação esteja intacta no local em até 30 dias.</p>
         <p>Qualquer alteração futura nos planos/valores será avisada nos contatos cadastrados.</p>
         <p><strong>Dúvidas? É só chamar!</strong></p>
@@ -251,8 +332,39 @@
     </div>
   </div>
 
+  <!-- Botão de modo escuro/claro -->
+  <button id="toggleTheme" aria-label="Alternar tema claro/escuro">
+    <svg id="sunIcon" class="theme-icon" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/>
+      <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+    <svg id="moonIcon" class="theme-icon" viewBox="0 0 24 24">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+
   <script>
     let leuContrato = false;
+
+    // Dark Mode
+    const toggleBtn = document.getElementById('toggleTheme');
+    const body = document.body;
+
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+    });
 
     document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('modalContrato').style.display = 'flex';
@@ -270,10 +382,10 @@
       const length = valor.length;
       feedback.textContent = `${length} / 11 dígitos`;
       if (length < 11) {
-        input.style.borderColor = '#d32f2f';
+        input.style.borderColor = '#ff6b6b';
         feedback.className = 'feedback erro';
       } else {
-        input.style.borderColor = '#25D366';
+        input.style.borderColor = '#4ae88a';
         feedback.className = 'feedback sucesso';
       }
     }
@@ -285,17 +397,17 @@
       if (valor === '') {
         feedback.textContent = 'Campo opcional';
         feedback.className = 'feedback sucesso';
-        input.style.borderColor = '#ced4da';
+        input.style.borderColor = 'var(--input-border)';
         return;
       }
       if (regexValido.test(valor) || /^[0-9]{10,11}$/.test(valor.replace(/\D/g, ''))) {
         feedback.textContent = 'Formato válido';
         feedback.className = 'feedback sucesso';
-        input.style.borderColor = '#25D366';
+        input.style.borderColor = '#4ae88a';
       } else {
         feedback.textContent = 'Formato inválido (ex: (85) 99999-9999)';
         feedback.className = 'feedback erro';
-        input.style.borderColor = '#d32f2f';
+        input.style.borderColor = '#ff6b6b';
       }
     }
 
@@ -305,23 +417,28 @@
       const erro = document.getElementById('erroSenha');
       feedback.textContent = `${valor.length} / 8 caracteres mínimos`;
       if (valor.length < 8) {
-        input.style.borderColor = '#d32f2f';
+        input.style.borderColor = '#ff6b6b';
         feedback.className = 'feedback erro';
         erro.style.display = 'block';
       } else {
-        input.style.borderColor = '#25D366';
+        input.style.borderColor = '#4ae88a';
         feedback.className = 'feedback sucesso';
         erro.style.display = 'none';
       }
     }
 
-    // Mostrar/esconder Lista de Streaming
+    // Controle de exibição da Lista de Streaming
     document.getElementById('megas').addEventListener('change', function() {
       const valorPlano = this.value;
       const grupoStreaming = document.getElementById('grupoStreaming');
       const selectLista = document.getElementById('listaStreaming');
       
-      const planosComBonus = ['400mb R$104,99', '500mb R$114,99', '600mb R$124,99', '700mb R$134,99'];
+      const planosComBonus = [
+        '400mb R$104,99',
+        '500mb R$114,99',
+        '600mb R$124,99',
+        '700mb R$134,99'
+      ];
       
       if (planosComBonus.includes(valorPlano)) {
         grupoStreaming.style.display = 'block';
@@ -329,7 +446,7 @@
       } else {
         grupoStreaming.style.display = 'none';
         selectLista.required = false;
-        selectLista.value = '';
+        selectLista.value = ''; // limpa seleção
       }
     });
 
@@ -362,15 +479,15 @@
           if (!valor) {
             todosPreenchidos = false;
             if (!primeiroCampoVazio) primeiroCampoVazio = elemento;
-            elemento.style.borderColor = '#d32f2f';
+            elemento.style.borderColor = '#ff6b6b';
             mensagemErro += `- ${campo.nome}\n`;
           } else {
-            elemento.style.borderColor = '#ced4da';
+            elemento.style.borderColor = 'var(--input-border)';
           }
         }
       }
 
-      // Validação extra: Lista de Streaming quando visível
+      // Validação extra: se o bloco estiver visível, exige escolha
       const grupoStreaming = document.getElementById('grupoStreaming');
       const listaStreamingEl = document.getElementById('listaStreaming');
       if (grupoStreaming.style.display === 'block' && !listaStreamingEl.value) {
@@ -450,7 +567,6 @@
       msg += megas + "\n";
       msg += "(Equipamento em comodato | 100% fibra óptica)\n\n";
 
-      // Adiciona a lista de streaming se selecionada
       if (listaStreaming !== "—") {
         msg += "*Lista de Streaming (Bônus)*\n";
         msg += listaStreaming + "\n";
@@ -480,12 +596,12 @@
       msg += "(nao altera o valor da mensalidade, usando ou não, é apenas um bônus. OBS: Não fornecemos o Aplicativo, somente a lista.)\n\n";
       msg += "Consulta de CPF: Realizamos diretamente no Serasa.\n";
       msg += "Prazo de instalação: Até 72h (maximo 3 dias úteis) após assinatura do contrato e entrada em rota.\n";
-      msg += "Primeira fatura: Valor proporcional aos dias utilizados até o vencimento escolhido ou integral.\n\n";
+      msg += "Primeira fatura: Valor proporcional aos dias utilizados ate o vencimento escolhido ou integral.\n\n";
       msg += "Equipamentos: Em caso de inadimplencia por mais de 30 dias, os equipamentos da empresa serão recolhidos. Ao regularizar, são reinstalados sem custo caso a instalação esteja intacta no local em até 30 dias.\n\n";
       msg += "Qualquer alteração futura nos planos/valores sera avisada nos contatos cadastrados.\n";
       msg += "Duvidas? É so chamar!\n\n";
       msg += "----- FIM DO RESUMO -----\n\n";
-      msg += "*Documentos:* Envie agora foto do RG/CNH (frente e verso) + comprovante de residência.\n\n";
+      msg += "*Documentos:* Envie agora foto do RG/CNH (frente e verso) + comprovante de residencia.\n\n";
       msg += "Enviado via Ficha Online - ROTA";
 
       const encodedMsg = encodeURIComponent(msg);
