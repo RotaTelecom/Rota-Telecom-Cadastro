@@ -87,13 +87,14 @@
       margin-top: 20px;
     }
     button:hover { background: var(--button-hover); }
+    /* Botão flutuante de tema - RESTAURADO COMO ESTAVA ORIGINALMENTE */
     #toggleTheme {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      top: 393px;
+      right: -15px;
       width: 50px;
       height: 50px;
-      border-radius: 50%;
+      border-radius: 10%;
       background: var(--bg-card);
       border: 2px solid #25D366;
       cursor: pointer;
@@ -108,6 +109,7 @@
     #toggleTheme:hover {
       transform: scale(1.1);
       box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      right: 0; /* faz o botão aparecer completamente ao hover */
     }
     .theme-icon {
       width: 32px;
@@ -281,7 +283,6 @@
       <div class="modal-body">
         <p><strong>NOVOS PLANOS COM CONTRATO DE 12 MESES</strong></p>
         <p>Disponíveis apenas para <strong>novas adesões</strong> no endereço de cadastro.</p>
-     
         <p><strong>Principais condições:</strong></p>
         <ul>
           <li>Contrato de fidelidade de 12 meses.</li>
@@ -307,7 +308,7 @@
     </div>
   </div>
 
-  <!-- Botão de modo escuro/claro -->
+  <!-- Botão de modo escuro/claro - posição e estilo originais -->
   <button id="toggleTheme" aria-label="Alternar tema claro/escuro">
     <svg id="sunIcon" class="theme-icon" viewBox="0 0 24 24">
       <circle cx="12" cy="12" r="5"/>
@@ -400,26 +401,18 @@
       }
     }
 
-    // Controle de exibição da Lista de Streaming
     document.getElementById('megas').addEventListener('change', function() {
       const valorPlano = this.value;
       const grupoStreaming = document.getElementById('grupoStreaming');
       const selectLista = document.getElementById('listaStreaming');
-     
-      const planosComBonus = [
-        '400mb R$104,99',
-        '500mb R$114,99',
-        '600mb R$124,99',
-        '700mb R$134,99'
-      ];
-     
+      const planosComBonus = ['400mb R$104,99','500mb R$114,99','600mb R$124,99','700mb R$134,99'];
       if (planosComBonus.includes(valorPlano)) {
         grupoStreaming.style.display = 'block';
         selectLista.required = true;
       } else {
         grupoStreaming.style.display = 'none';
         selectLista.required = false;
-        selectLista.value = ''; // limpa seleção
+        selectLista.value = '';
       }
     });
 
@@ -457,7 +450,6 @@
           }
         }
       }
-      // Validação extra: se o bloco estiver visível, exige escolha
       const grupoStreaming = document.getElementById('grupoStreaming');
       const listaStreamingEl = document.getElementById('listaStreaming');
       if (grupoStreaming.style.display === 'block' && !listaStreamingEl.value) {
