@@ -21,7 +21,6 @@
       --button-bg: #25D366;
       --button-hover: #20b858;
     }
-
     body.dark {
       --bg-body: #121212;
       --text-main: #e0e0e0;
@@ -35,7 +34,6 @@
       --h1-color: #4ae88a;
       --h2-color: #3ab07a;
     }
-
     body {
       font-family: 'Roboto', Arial, sans-serif;
       max-width: 650px;
@@ -45,7 +43,6 @@
       color: var(--text-main);
       transition: background 0.3s, color 0.3s;
     }
-
     header { text-align: center; margin-bottom: 25px; position: relative; }
     .logo { max-width: 100px; height: auto; display: block; margin: 0 auto 10px; }
     h1 { color: var(--h1-color); font-size: 2em; margin: 0; }
@@ -90,33 +87,28 @@
       margin-top: 20px;
     }
     button:hover { background: var(--button-hover); }
-
-    /* Botão flutuante de tema */
-     #toggleTheme {
-       position: fixed;
-       top: 393px;
-       bottom: 20px;
-       right: -15px;
-       width: 50px;
-       height: 50px;
-       border-radius: 10%;
-       background: var(--bg-card);
-       border: 2px solid #25D366;
-       cursor: pointer;
-       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       z-index: 1000;
-       transition: all 0.25s ease;
-       color: var(--text-main);
+    #toggleTheme {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px solid #25D366;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: all 0.25s ease;
+      color: var(--text-main);
     }
-
     #toggleTheme:hover {
       transform: scale(1.1);
       box-shadow: 0 6px 20px rgba(0,0,0,0.35);
     }
-
     .theme-icon {
       width: 32px;
       height: 32px;
@@ -125,15 +117,12 @@
       fill: none;
       transition: opacity 0.4s ease;
     }
-
     #sunIcon { display: block; }
     #moonIcon { display: none; }
     body.dark #sunIcon { display: none !important; }
     body.dark #moonIcon { display: block !important; }
-
-    /* Lista de Streaming - estilo harmonioso nos dois modos */
     #grupoStreaming {
-      display: none; /* começa escondido */
+      display: none;
       margin-top: 20px;
       padding: 16px;
       background: var(--bg-card);
@@ -141,18 +130,15 @@
       border-radius: 8px;
       box-shadow: inset 0 1px 4px rgba(0,0,0,0.05);
     }
-
     body.dark #grupoStreaming {
       border-color: rgba(74, 232, 138, 0.4);
       background: rgba(74, 232, 138, 0.06);
     }
-
     #grupoStreaming p {
       margin: 0 0 12px;
       font-size: 0.95em;
       color: var(--text-secondary);
     }
-
     #grupoStreaming small {
       display: block;
       margin-top: 8px;
@@ -160,11 +146,9 @@
       color: var(--text-secondary);
       line-height: 1.4;
     }
-
     .instrucao { font-size: 14px; color: var(--text-secondary); text-align: center; margin-top: 25px; line-height: 1.5; }
     .precos { font-size: 14px; color: var(--text-secondary); margin-top: 10px; font-style: italic; }
     p.intro { text-align: center; font-size: 1.1em; color: var(--text-main); margin-bottom: 30px; }
-
     .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 2000; align-items: center; justify-content: center; padding: 15px; }
     .modal-content { background: var(--bg-card); max-width: 580px; width: 100%; border-radius: 12px; padding: 24px; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.25); color: var(--text-main); }
     .modal-header { text-align: center; margin-bottom: 20px; color: var(--h2-color); }
@@ -179,14 +163,11 @@
   </style>
 </head>
 <body>
-
   <header>
     <img src="https://storage.vmixhost.com/uploads/permanent/68c5704132ad3.png" alt="ROTA Internet Fibra Logo" class="logo">
     <h1>Ficha de Cadastro</h1>
   </header>
-
   <p class="intro">Preencha os dados abaixo e envie via WhatsApp para darmos continuidade com seu pedido de internet fibra óptica!</p>
-
   <form id="fichaForm">
     <div class="grupo">
       <h2>👤 Dados Pessoais</h2>
@@ -206,7 +187,6 @@
       <input type="tel" id="contato2" maxlength="15" placeholder="(85) 9xxxx-xxxx (opcional)" oninput="atualizarFeedbackTelefone(this, 'feedbackContato2')">
       <small id="feedbackContato2" class="feedback sucesso">Formato válido (opcional)</small>
     </div>
-
     <div class="grupo">
       <h2>🏠 Endereço</h2>
       <label for="rua">Rua:</label>
@@ -220,7 +200,6 @@
       <label for="apartamento">Apartamento:</label>
       <input type="text" id="apartamento" required>
     </div>
-
     <div class="grupo">
       <h2>📡 Informações do Serviço</h2>
       <label for="megas">Plano / MEGAS contratados:</label>
@@ -233,8 +212,6 @@
         <option value="600mb R$124,99">600 MB - R$ 124,99/mês</option>
         <option value="700mb R$134,99">700 MB - R$ 134,99/mês</option>
       </select>
-
-      <!-- Lista de Streaming - só aparece se plano ≥ 400 MB -->
       <div id="grupoStreaming">
         <h3>🎥 Lista de Streaming (Bônus Exclusivo)</h3>
         <p>Disponível gratuitamente para planos de 400 MB ou superiores.<br>Escolha o tipo de lista desejada:</p>
@@ -248,12 +225,10 @@
           Observação: A Lista Completa inclui todo o conteúdo da Lista Base + material direcionado a maiores de 18 anos.
         </small>
       </div>
-
       <div class="precos">
         Todos os planos incluem: Equipamento em comodato (roteador da empresa) + Instalação 100% fibra óptica.
       </div>
     </div>
-
     <div class="grupo">
       <h2>💳 Pagamento</h2>
       <label for="forma">Forma de pagamento da instalação:</label>
@@ -263,6 +238,9 @@
         <option value="PIX">PIX</option>
         <option value="Espécie">Espécie</option>
       </select>
+      <small style="display: block; margin-top: 6px; color: var(--text-secondary); font-size: 0.9em;">
+        Pagamento no cartão (seja crédito ou débito) está sujeito a acréscimo da maquineta.
+      </small>
       <label for="vencimento">Data de vencimento do carnê:</label>
       <select id="vencimento" required>
         <option value="">Selecione...</option>
@@ -272,7 +250,6 @@
         <option value="25">25</option>
       </select>
     </div>
-
     <div class="grupo">
       <h2>📶 Configuração do Wi-Fi</h2>
       <label for="rede">Nome da rede Wi-Fi:</label>
@@ -284,14 +261,11 @@
         A senha deve ter no mínimo 8 caracteres.
       </small>
     </div>
-
     <button type="button" onclick="confirmarEnvio()">Enviar Cadastro via WhatsApp</button>
   </form>
-
   <p class="instrucao">📌 Após confirmar, o WhatsApp abrirá com todos os dados preenchidos. Confirme o envio!<br>
   Em seguida, envie as fotos dos documentos: RG/CNH (frente e verso) + comprovante de residência no mesmo chat.<br>
   Atendimento ROTA: (85) 8885-4418</p>
-
   <div class="reabrir-link">
     <a href="#" onclick="document.getElementById('modalContrato').style.display='flex'; return false;">
       Ler novamente o resumo de informações
@@ -307,7 +281,7 @@
       <div class="modal-body">
         <p><strong>NOVOS PLANOS COM CONTRATO DE 12 MESES</strong></p>
         <p>Disponíveis apenas para <strong>novas adesões</strong> no endereço de cadastro.</p>
-      
+     
         <p><strong>Principais condições:</strong></p>
         <ul>
           <li>Contrato de fidelidade de 12 meses.</li>
@@ -357,11 +331,9 @@
     // Dark Mode
     const toggleBtn = document.getElementById('toggleTheme');
     const body = document.body;
-
     if (localStorage.getItem('theme') === 'dark') {
       body.classList.add('dark');
     }
-
     toggleBtn.addEventListener('click', () => {
       body.classList.toggle('dark');
       localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
@@ -433,14 +405,14 @@
       const valorPlano = this.value;
       const grupoStreaming = document.getElementById('grupoStreaming');
       const selectLista = document.getElementById('listaStreaming');
-      
+     
       const planosComBonus = [
         '400mb R$104,99',
         '500mb R$114,99',
         '600mb R$124,99',
         '700mb R$134,99'
       ];
-      
+     
       if (planosComBonus.includes(valorPlano)) {
         grupoStreaming.style.display = 'block';
         selectLista.required = true;
@@ -468,11 +440,9 @@
         { id: 'vencimento', nome: 'Data de vencimento do carnê' },
         { id: 'rede', nome: 'Nome da rede Wi-Fi' }
       ];
-
       let todosPreenchidos = true;
       let primeiroCampoVazio = null;
       let mensagemErro = '';
-
       for (const campo of camposObrigatorios) {
         const elemento = document.getElementById(campo.id);
         if (elemento) {
@@ -487,7 +457,6 @@
           }
         }
       }
-
       // Validação extra: se o bloco estiver visível, exige escolha
       const grupoStreaming = document.getElementById('grupoStreaming');
       const listaStreamingEl = document.getElementById('listaStreaming');
@@ -496,14 +465,12 @@
         listaStreamingEl.focus();
         return;
       }
-
       const senhaValor = document.getElementById('senha').value.trim();
       if (senhaValor.length < 8) {
         alert('A senha do Wi-Fi deve ter no mínimo 8 caracteres.');
         document.getElementById('senha').focus();
         return;
       }
-
       const contato1Valor = document.getElementById('contato1').value.trim();
       const regexTel = /^\(?[0-9]{2}\)? ?[0-9]{4,5}-?[0-9]{4}$/;
       if (!regexTel.test(contato1Valor) && contato1Valor !== '') {
@@ -511,19 +478,16 @@
         document.getElementById('contato1').focus();
         return;
       }
-
       if (!todosPreenchidos) {
         alert('Por favor, preencha os seguintes campos obrigatórios:\n\n' + mensagemErro);
         if (primeiroCampoVazio) setTimeout(() => primeiroCampoVazio.focus(), 100);
         return;
       }
-
       if (!leuContrato) {
         alert('Por favor, leia e confirme o resumo de informações antes de prosseguir.');
         document.getElementById('modalContrato').style.display = 'flex';
         return;
       }
-
       if (confirm('Você confirma que leu e entendeu todas as informações e condições do serviço?')) {
         enviarParaWhatsApp();
       }
@@ -531,9 +495,13 @@
 
     function enviarParaWhatsApp() {
       const telefone = "558588854418";
+      let nascimento = document.getElementById("nascimento").value || "—";
+      if (nascimento !== "—") {
+        const [yyyy, mm, dd] = nascimento.split("-");
+        nascimento = `${dd.padStart(2, '0')}/${mm.padStart(2, '0')}/${yyyy}`;
+      }
       const nome = document.getElementById("nome").value.trim() || "—";
       const cpf = document.getElementById("cpf").value.trim() || "—";
-      const nascimento = document.getElementById("nascimento").value || "—";
       const email = document.getElementById("email").value.trim() || "—";
       const contato1 = document.getElementById("contato1").value.trim() || "—";
       const contato2 = document.getElementById("contato2").value.trim() || "—";
@@ -567,13 +535,11 @@
       msg += "*Plano Escolhido*\n";
       msg += megas + "\n";
       msg += "(Equipamento em comodato | 100% fibra óptica)\n\n";
-
       if (listaStreaming !== "—") {
         msg += "*Lista de Streaming (Bônus)*\n";
         msg += listaStreaming + "\n";
         msg += "(Gratuito para planos 400 MB ou superiores)\n\n";
       }
-
       msg += "*Pagamento*\n";
       msg += "Forma de pagamento referente a instalação: " + forma + "\n";
       msg += "Vencimento do carnê: dia " + vencimento + "\n\n";
@@ -581,7 +547,6 @@
       msg += "Nome da rede: " + rede + "\n";
       msg += "Senha: " + senha + "\n\n";
       msg += "*Leu as informações do Pedido:* " + leuTexto + "\n\n";
-
       msg += "----- RESUMO DE INFORMAÇÕES REFERENTE AO PEDIDO -----\n\n";
       msg += "NOVOS PLANOS COM CONTRATO DE 12 MESES\n";
       msg += "Disponíveis apenas para novas adesões no endereço de cadastro.\n\n";
@@ -591,7 +556,7 @@
       msg += "- Instalação 100% fibra óptica na residência.\n";
       msg += "- Roteador em comodato (da empresa).\n";
       msg += "- Valor da instalação: R$ 100,00 a vista (pago no dia da instalação).\n";
-      msg += "- Aceitamos Espécie, PIX e cartão (crédito/debito) com acréscimo da maquineta.\n\n";
+      msg += "- Aceitamos Espécie, PIX e cartão (crédito/débito) com acréscimo da maquineta.\n\n";
       msg += "Bônus exclusivo:\n";
       msg += "Planos 400 Megas ou superiores → Acesso GRATUITO a lista de transmissão com conteúdo streaming\n";
       msg += "(não altera o valor da mensalidade, usando ou não, é apenas um bônus. OBS: Não fornecemos o Aplicativo, somente a lista.)\n\n";
