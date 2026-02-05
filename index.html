@@ -20,6 +20,8 @@
       --h2-color: #128C7E;
       --button-bg: #25D366;
       --button-hover: #20b858;
+      --verde-claro: #e8f5e9;
+      --verde-escuro: #2e7d32;
     }
     body.dark {
       --bg-body: #121212;
@@ -33,6 +35,8 @@
       --focus-ring: rgba(37, 211, 102, 0.35);
       --h1-color: #4ae88a;
       --h2-color: #3ab07a;
+      --verde-claro: rgba(37, 211, 102, 0.15);
+      --verde-escuro: #81c784;
     }
     body {
       font-family: 'Roboto', Arial, sans-serif;
@@ -87,7 +91,6 @@
       margin-top: 20px;
     }
     button:hover { background: var(--button-hover); }
-    /* Botão flutuante de tema - RESTAURADO COMO ESTAVA ORIGINALMENTE */
     #toggleTheme {
       position: fixed;
       top: 393px;
@@ -109,7 +112,7 @@
     #toggleTheme:hover {
       transform: scale(1.1);
       box-shadow: 0 6px 20px rgba(0,0,0,0.35);
-      right: 0; /* faz o botão aparecer completamente ao hover */
+      right: 0;
     }
     .theme-icon {
       width: 32px;
@@ -162,6 +165,64 @@
     .sucesso { color: #4ae88a; }
     .reabrir-link { text-align: center; margin-top: 15px; font-size: 0.95em; }
     .reabrir-link a { color: #25D366; text-decoration: underline; cursor: pointer; }
+
+    /* === Card de planos - visual chamativo === */
+    .card-planos {
+      background: var(--verde-claro);
+      border: 2px solid var(--h1-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0 24px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+    body.dark .card-planos {
+      background: rgba(37, 211, 102, 0.18);
+      border-color: #4ae88a;
+    }
+    .card-planos h4 {
+      margin: 0 0 16px;
+      color: var(--h1-color);
+      font-size: 1.4em;
+      text-align: center;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .plano-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 12px 0;
+      font-size: 1.08em;
+      padding: 6px 0;
+    }
+    .plano-item::before {
+      content: "✔";
+      color: var(--h1-color);
+      font-weight: bold;
+      margin-right: 14px;
+      font-size: 1.4em;
+    }
+    .plano-velocidade {
+      font-weight: 700;
+      color: var(--text-main);
+      flex: 1;
+    }
+    .plano-preco {
+      background: var(--h1-color);
+      color: white;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 1em;
+      min-width: 120px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    body.dark .plano-preco {
+      background: #4ae88a;
+      color: #0d1a0f;
+    }
   </style>
 </head>
 <body>
@@ -274,7 +335,7 @@
     </a>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal com o card de planos -->
   <div id="modalContrato" class="modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -282,7 +343,39 @@
       </div>
       <div class="modal-body">
         <p><strong>NOVOS PLANOS COM CONTRATO DE 12 MESES</strong></p>
-        <p>Disponíveis apenas para <strong>novas adesões</strong> no endereço de cadastro.</p>
+
+        <div class="card-planos">
+          <h4>PLANOS & VALORES DISPONÍVEIS</h4>
+          <div class="plano-item">
+            <span class="plano-velocidade">200 MEGAS</span>
+            <span class="plano-preco">R$ 74,99</span>
+          </div>
+          <div class="plano-item">
+            <span class="plano-velocidade">300 MEGAS</span>
+            <span class="plano-preco">R$ 94,99</span>
+          </div>
+          <div class="plano-item">
+            <span class="plano-velocidade">400 MEGAS</span>
+            <span class="plano-preco">R$ 104,99</span>
+          </div>
+          <div class="plano-item">
+            <span class="plano-velocidade">500 MEGAS</span>
+            <span class="plano-preco">R$ 114,99</span>
+          </div>
+          <div class="plano-item">
+            <span class="plano-velocidade">600 MEGAS</span>
+            <span class="plano-preco">R$ 124,99</span>
+          </div>
+          <div class="plano-item">
+            <span class="plano-velocidade">700 MEGAS</span>
+            <span class="plano-preco">R$ 134,99</span>
+          </div>
+        </div>
+
+        <p style="text-align: center; font-weight: 500; margin: 10px 0 30px;">
+          Disponíveis apenas para <strong>novas adesões</strong> no endereço de cadastro.
+        </p>
+
         <p><strong>Principais condições:</strong></p>
         <ul>
           <li>Contrato de fidelidade de 12 meses.</li>
@@ -308,7 +401,6 @@
     </div>
   </div>
 
-  <!-- Botão de modo escuro/claro - posição e estilo originais -->
   <button id="toggleTheme" aria-label="Alternar tema claro/escuro">
     <svg id="sunIcon" class="theme-icon" viewBox="0 0 24 24">
       <circle cx="12" cy="12" r="5"/>
@@ -329,7 +421,6 @@
   <script>
     let leuContrato = false;
 
-    // Dark Mode
     const toggleBtn = document.getElementById('toggleTheme');
     const body = document.body;
     if (localStorage.getItem('theme') === 'dark') {
